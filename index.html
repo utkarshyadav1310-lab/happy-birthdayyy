@@ -15,10 +15,10 @@ body {
     font-family: 'Montserrat', sans-serif;
     background: radial-gradient(circle at top, #ffd1dc, #ff9ab8, #ff7aa2);
     overflow-x: hidden;
-    color: #3b0a1a; /* default text: deep plum */
+    color: #3b0a1a;
 }
 
-/* FLOATING BACKGROUND WORDS */
+/* FLOATING WORDS + EMOJIS */
 .background-text {
     position: fixed;
     inset: 0;
@@ -34,6 +34,11 @@ body {
     animation: floatUp 35s linear infinite;
     white-space: nowrap;
     color: #5a0f2e;
+}
+
+.background-text .emoji {
+    font-size: 2.5rem;
+    opacity: 0.15;
 }
 
 @keyframes floatUp {
@@ -70,7 +75,11 @@ h1, h2 {
 h1 {
     font-size: 3.3rem;
     margin-bottom: 20px;
-    color: #000; /* ONLY the main title is black */
+    color: #000;
+}
+
+h1::after {
+    content: " 💗";
 }
 
 #countdown {
@@ -93,6 +102,10 @@ h1 {
     color: #4a0822;
 }
 
+.message h2::after {
+    content: " 💕";
+}
+
 .message p {
     color: #6b1238;
 }
@@ -105,7 +118,7 @@ h1 {
     font-size: 1.1rem;
     line-height: 1.85;
     white-space: pre-wrap;
-    color: #2a0612; /* charcoal, not pure black */
+    color: #2a0612;
     opacity: 0;
     animation: fadeUp 4s ease forwards;
     animation-delay: 3s;
@@ -119,11 +132,10 @@ h1 {
 /* CONFETTI */
 .confetti {
     position: fixed;
-    width: 10px;
-    height: 10px;
     top: -10px;
     animation: fall linear forwards;
     z-index: 5;
+    font-size: 16px;
 }
 
 @keyframes fall {
@@ -139,17 +151,17 @@ h1 {
 <div class="background-text" id="bgText"></div>
 <div class="vignette"></div>
 
-<!-- COUNTDOWN SCREEN -->
+<!-- COUNTDOWN -->
 <div class="center" id="countdownScreen">
     <h1>Patrakar Ka Birthday</h1>
     <div id="countdown"></div>
 </div>
 
-<!-- BIRTHDAY SCREEN -->
+<!-- BIRTHDAY -->
 <div class="center hidden" id="birthdayScreen">
     <div class="message">
-        <h2>Happy Birthday, Jaya ❤️</h2>
-        <p>With love, always — Patrakar</p>
+        <h2>Happy Birthday, Jaya</h2>
+        <p>With love, always — Patrakar 💖</p>
 
         <div class="poem">
 For the Day You Were Born
@@ -171,7 +183,7 @@ I see it in the pauses between your messages,
 in the way your warmth sometimes
 has to travel miles before reaching me.
 
-And yet—
+And yet,
 God, and yet.
 
 When I think of you,
@@ -186,7 +198,7 @@ I love you in ways that don’t always behave.
 I love you with a heart that stumbles,
 with hands that shake while holding truth.
 I love you not as a promise of perfection
-but as a vow of return—
+but as a vow of return,
 that even when I fall short,
 I will walk back to you,
 again and again.
@@ -212,11 +224,11 @@ in all my broken verbs and unfinished lines.
 Today, the earth celebrates the fact
 that you arrived.
 And selfishly, quietly,
-so do I—
+so do I,
 because somehow, in this loud and careless world,
 you chose to stay with me.
 
-Happy Birthday.
+Happy Birthday 💞
 If I am still becoming,
 it is because loving you
 has taught me how.
@@ -225,23 +237,24 @@ has taught me how.
 </div>
 
 <script>
-// BACKGROUND WORDS
-const words = ["Jaya", "Love", "Patrakar"];
+// BACKGROUND WORDS + EMOJIS
+const items = ["Jaya", "Love", "Patrakar", "💖", "💗", "✨", "💞"];
 const bg = document.getElementById("bgText");
 
-for (let i = 0; i < 45; i++) {
+for (let i = 0; i < 50; i++) {
     const span = document.createElement("span");
-    span.textContent = words[i % words.length];
+    span.textContent = items[i % items.length];
+    if (span.textContent.match(/💖|💗|✨|💞/)) span.classList.add("emoji");
     span.style.left = Math.random() * 100 + "vw";
-    span.style.animationDuration = 20 + Math.random() * 30 + "s";
-    span.style.fontSize = 3 + Math.random() * 3 + "rem";
+    span.style.animationDuration = 25 + Math.random() * 30 + "s";
+    span.style.fontSize = span.classList.contains("emoji") ? "2.5rem" : (3 + Math.random() * 3) + "rem";
     span.style.animationDelay = Math.random() * 20 + "s";
     bg.appendChild(span);
 }
 
-// COUNTDOWN (AUTO FIX)
+// COUNTDOWN
 const now = new Date();
-let birthday = new Date(Date.now() + 60 * 1000);
+let birthday = new Date(now.getFullYear(), 0, 10, 0, 0, 0);
 if (now >= birthday) birthday = now;
 
 const countdownEl = document.getElementById("countdown");
@@ -269,11 +282,12 @@ function launchBirthday() {
 }
 
 function startConfetti() {
-    for (let i = 0; i < 300; i++) {
+    const shapes = ["💖", "💗", "💞", "✨", "❤️"];
+    for (let i = 0; i < 250; i++) {
         const c = document.createElement("div");
         c.className = "confetti";
+        c.textContent = shapes[Math.floor(Math.random() * shapes.length)];
         c.style.left = Math.random() * 100 + "vw";
-        c.style.backgroundColor = `hsl(${Math.random()*360},70%,70%)`;
         c.style.animationDuration = 2 + Math.random() * 4 + "s";
         document.body.appendChild(c);
         setTimeout(() => c.remove(), 6000);
