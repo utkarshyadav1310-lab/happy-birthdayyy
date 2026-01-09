@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Patrakar Ka Birthday</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #000;
+    background: radial-gradient(circle at top, #ffd1dc, #ff9ab8, #ff7aa2);
+    overflow-x: hidden;
+}
+
+/* CINEMATIC FLOATING BACKGROUND WORDS */
+.background-text {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.background-text span {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    opacity: 0.08;
+    animation: floatUp 35s linear infinite;
+    white-space: nowrap;
+    color: #000;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(110vh); }
+    to { transform: translateY(-130vh); }
+}
+
+/* VIGNETTE */
+.vignette {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, transparent 60%, rgba(255,105,180,0.6));
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* CENTER CONTENT */
+.center {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    position: relative;
+    z-index: 3;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+}
+
+h1 {
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+}
+
+#countdown {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+}
+
+.hidden { display: none; }
+
+/* MESSAGE */
+.message {
+    max-width: 900px;
+    animation: fadeUp 3s ease forwards;
+}
+
+.message h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.poem {
+    margin-top: 30px;
+    text-align: left;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    line-height: 1.85;
+    white-space: pre-wrap;
+    opacity: 0;
+    animation: fadeUp 4s ease forwards;
+    animation-delay: 3s;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* CONFETTI */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: fall linear forwards;
+    z-index: 5;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="background-text" id="bgText"></div>
+<div class="vignette"></div>
+
+<!-- COUNTDOWN SCREEN -->
+<div class="center" id="countdownScreen">
+    <h1>Patrakar Ka Birthday</h1>
+    <div id="countdown"></div>
+</div>
+
+<!-- BIRTHDAY SCREEN -->
+<div class="center hidden" id="birthdayScreen">
+    <div class="message">
+        <h2>Happy Birthday, Jaya ❤️</h2>
+        <p>With love, always — Patrakar</p>
+
+        <div class="poem">
+For the Day You Were Born
+
+I am not a good man in the cinematic sense.
+I forget to reply sometimes.
+I sleep when I should stay awake for you.
+I choose silence when words are needed most.
+If love were a discipline,
+I would be the student always late,
+shirt untucked, heart in his hands,
+asking for one more chance.
+
+I don’t come with roses every morning.
+Some days I arrive empty,
+like a cup left too long on the table.
+I know this.
+I see it in the pauses between your messages,
+in the way your warmth sometimes
+has to travel miles before reaching me.
+
+And yet—
+God, and yet.
+
+When I think of you,
+the world softens at the edges.
+Even my failures learn to kneel.
+You turn ordinary hours into something holy,
+like Keats’ nightingale singing
+from a place too tender to touch,
+too real to doubt.
+
+I love you in ways that don’t always behave.
+I love you with a heart that stumbles,
+with hands that shake while holding truth.
+I love you not as a promise of perfection
+but as a vow of return—
+that even when I fall short,
+I will walk back to you,
+again and again.
+
+On your birthday,
+I don’t offer grand futures or flawless days.
+I offer this:
+a man still learning how to love better,
+a man who knows your presence
+is not a convenience but a miracle,
+not a habit but a choice
+I would make in every lifetime.
+
+If I have hurt you,
+know it was never from lack of love
+but from the clumsiness of carrying
+something so precious with untrained hands.
+I am trying.
+I am staying.
+I am yours,
+in all my broken verbs and unfinished lines.
+
+Today, the earth celebrates the fact
+that you arrived.
+And selfishly, quietly,
+so do I—
+because somehow, in this loud and careless world,
+you chose to stay with me.
+
+Happy Birthday.
+If I am still becoming,
+it is because loving you
+has taught me how.
+        </div>
+    </div>
+</div>
+
+<script>
+// BACKGROUND WORDS
+const words = ["Jaya", "Love", "Patrakar"];
+const bg = document.getElementById("bgText");
+
+for (let i = 0; i < 45; i++) {
+    const span = document.createElement("span");
+    span.textContent = words[i % words.length];
+    span.style.left = Math.random() * 100 + "vw";
+    span.style.animationDuration = 20 + Math.random() * 30 + "s";
+    span.style.fontSize = 3 + Math.random() * 3 + "rem";
+    span.style.animationDelay = Math.random() * 20 + "s";
+    bg.appendChild(span);
+}
+
+// COUNTDOWN LOGIC (AUTO-FIX)
+const now = new Date();
+let birthday = new Date(now.getFullYear(), 0, 10, 0, 0, 0);
+if (now >= birthday) birthday = now;
+
+const countdownEl = document.getElementById("countdown");
+const countdownScreen = document.getElementById("countdownScreen");
+const birthdayScreen = document.getElementById("birthdayScreen");
+
+function updateCountdown() {
+    const diff = birthday - new Date();
+    if (diff <= 0) {
+        launchBirthday();
+        return;
+    }
+    const h = Math.floor(diff / (1000 * 60 * 60));
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    countdownEl.textContent =
+        `${h.toString().padStart(2,'0')} : ${m.toString().padStart(2,'0')} : ${s.toString().padStart(2,'0')}`;
+}
+
+function launchBirthday() {
+    countdownScreen.classList.add("hidden");
+    birthdayScreen.classList.remove("hidden");
+    startConfetti();
+    clearInterval(timer);
+}
+
+function startConfetti() {
+    for (let i = 0; i < 300; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.backgroundColor = `hsl(${Math.random()*360},80%,60%)`;
+        c.style.animationDuration = 2 + Math.random() * 4 + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 6000);
+    }
+}
+
+const timer = setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
