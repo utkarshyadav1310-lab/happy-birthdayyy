@@ -233,7 +233,7 @@ for (let i = 0; i < 45; i++) {
 
 // COUNTDOWN LOGIC (AUTO-FIX)
 const now = new Date();
-let birthday = new Date(now.getFullYear(), 0, 10, 0, 0, 0);
+let birthday = new Date(Date.now() + 60 * 1000);
 if (now >= birthday) birthday = now;
 
 const countdownEl = document.getElementById("countdown");
