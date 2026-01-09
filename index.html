@@ -13,12 +13,12 @@
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    color: #000;
     background: radial-gradient(circle at top, #ffd1dc, #ff9ab8, #ff7aa2);
     overflow-x: hidden;
+    color: #3b0a1a; /* default text: deep plum */
 }
 
-/* CINEMATIC FLOATING BACKGROUND WORDS */
+/* FLOATING BACKGROUND WORDS */
 .background-text {
     position: fixed;
     inset: 0;
@@ -30,10 +30,10 @@ body {
     position: absolute;
     font-family: 'Playfair Display', serif;
     font-size: 4rem;
-    opacity: 0.08;
+    opacity: 0.07;
     animation: floatUp 35s linear infinite;
     white-space: nowrap;
-    color: #000;
+    color: #5a0f2e;
 }
 
 @keyframes floatUp {
@@ -45,7 +45,7 @@ body {
 .vignette {
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle, transparent 60%, rgba(255,105,180,0.6));
+    background: radial-gradient(circle, transparent 55%, rgba(120,0,60,0.35));
     z-index: 2;
     pointer-events: none;
 }
@@ -68,13 +68,15 @@ h1, h2 {
 }
 
 h1 {
-    font-size: 3.2rem;
+    font-size: 3.3rem;
     margin-bottom: 20px;
+    color: #000; /* ONLY the main title is black */
 }
 
 #countdown {
-    font-size: 2.5rem;
+    font-size: 2.4rem;
     letter-spacing: 4px;
+    color: #5a0f2e;
 }
 
 .hidden { display: none; }
@@ -88,8 +90,14 @@ h1 {
 .message h2 {
     font-size: 3rem;
     margin-bottom: 10px;
+    color: #4a0822;
 }
 
+.message p {
+    color: #6b1238;
+}
+
+/* POEM */
 .poem {
     margin-top: 30px;
     text-align: left;
@@ -97,6 +105,7 @@ h1 {
     font-size: 1.1rem;
     line-height: 1.85;
     white-space: pre-wrap;
+    color: #2a0612; /* charcoal, not pure black */
     opacity: 0;
     animation: fadeUp 4s ease forwards;
     animation-delay: 3s;
@@ -127,7 +136,6 @@ h1 {
 
 <body>
 
-<!-- BACKGROUND -->
 <div class="background-text" id="bgText"></div>
 <div class="vignette"></div>
 
@@ -231,7 +239,7 @@ for (let i = 0; i < 45; i++) {
     bg.appendChild(span);
 }
 
-// COUNTDOWN LOGIC (AUTO-FIX)
+// COUNTDOWN (AUTO FIX)
 const now = new Date();
 let birthday = new Date(Date.now() + 60 * 1000);
 if (now >= birthday) birthday = now;
@@ -265,7 +273,7 @@ function startConfetti() {
         const c = document.createElement("div");
         c.className = "confetti";
         c.style.left = Math.random() * 100 + "vw";
-        c.style.backgroundColor = `hsl(${Math.random()*360},80%,60%)`;
+        c.style.backgroundColor = `hsl(${Math.random()*360},70%,70%)`;
         c.style.animationDuration = 2 + Math.random() * 4 + "s";
         document.body.appendChild(c);
         setTimeout(() => c.remove(), 6000);
@@ -278,3 +286,4 @@ updateCountdown();
 
 </body>
 </html>
+
